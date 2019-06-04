@@ -58,7 +58,7 @@ int round(double x, char c) {
   if (x > 0) {
     return (c == 'd') ? (int)x : (int)x + 1;
   } else {
-    return (c == 'd') ? (int)x - 1 : (int)x;
+    return (c == 'u') ? (int)x - 1 : (int)x;
   }
 }
 
