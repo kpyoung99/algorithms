@@ -15,6 +15,7 @@ matrix:
   include:
     - name: "Strings"
       env: 
+<<<<<<< HEAD
       - SOURCE=source/string.cpp
     - name: "Iterative Functions"
       env:
@@ -29,3 +30,21 @@ matrix:
 script:
   - echo $SOURCE
   - g++-8 -std=c++11 $SOURCE && ./a.out
+=======
+      - TARGET=string
+    - name: "Iterative Functions"
+      env:
+      - TARGET=functions
+    - name: "Recursive Functions"
+      env:
+      - TARGET=functions_recursive
+    - name: "Sorts"
+      env:
+      - TARGET=sorts
+    - name: "SLL"
+      env:
+      - TARGET=SLL
+
+script:
+  - make CXX=g++-8 $(TARGET)
+>>>>>>> upstream/master

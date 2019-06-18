@@ -1,6 +1,8 @@
-#ifndef __STRING__
-#define __STRING__
+#ifndef DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
+#endif
 
+<<<<<<< HEAD:source/string.hpp
 #include "doctest/doctest/doctest.h"
 
 class String {
@@ -128,6 +130,10 @@ class String {
    */
   String substr(int, int) const;
 };
+=======
+#include "../doctest.h"
+#include "string.hpp"
+>>>>>>> upstream/master:source/String/string.test.cpp
 
 TEST_CASE("Append") {
   String s;
@@ -327,5 +333,3 @@ TEST_CASE("To Int") {
     CHECK_THROWS(s.toInt());
   }
 }
-
-#endif

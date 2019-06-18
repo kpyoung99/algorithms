@@ -12,11 +12,17 @@ Welcome to CSC 212, Data Structures and Algorithms!
 - [Slack Room](https://csc212.slack.com/)
 - [DevDocs](https://devdocs.io/)
 - [Cheat Sheets](docs/cheat_sheets/)
+- [Visualizations](https://www.cs.usfca.edu/~galles/visualization/Algorithms.html)
+- [Visualgo](https://visualgo.net/en)
 
 ---
 
 ## Assignments
 
+<<<<<<< HEAD
+=======
+- [A04: Advanced Sorting](docs/assignments/A04.md)
+>>>>>>> upstream/master
 - [A03: HybridSort](docs/assignments/A03.md)
 - [A02: String Class](docs/assignments/A02.md)
 - [A01: Kattis Competition](docs/assignments/A01.md)
@@ -46,3 +52,11 @@ Welcome to CSC 212, Data Structures and Algorithms!
 
 - [E01 Review](docs/exams/E01R.md)
 - [E01 Review Answers](docs/exams/E01RA.md)
+<<<<<<< HEAD
+=======
+
+## Good Reads
+
+- [Visualizing Algorithms](https://bost.ocks.org/mike/algorithms/)
+- [Algorithmic Art](http://www.kristenwebster.net/)
+>>>>>>> upstream/master
