@@ -1,43 +1,7 @@
-<<<<<<< HEAD
-#include "SLL.hpp"
-
-int at(int index){
-    
-}
-
-void push_front(int data){
-    Node* front = new Node(data);
-    if (!head)
-        head = front;
-    else{
-        front->next = head;
-        head = front;
-    }
-    ++len;
-}
-void push_back(int data){
-    Node* back = new Node(data);
-    if (!tail)
-        tail = back;
-    else{
-        tail->next = back;
-        back = tail;
-    }
-    ++len;
-}
-void push(int data, int index){
-    Node* mid = new Node(data);
-    Node* bef = head;
-    for (int k = 0; k < index - 1; k++){
-        bef = bef->next;
-    }
-    mid->next = bef->next;
-    bef->next = mid;
-=======
 #include "LinkedList.hpp"
 
 LinkedList::LinkedList() {
-  head = nullptr;
+  head = tail = nullptr;
   len = 0;
 }
 
@@ -52,9 +16,10 @@ unsigned int LinkedList::length() {
 void LinkedList::push_front(int d) {
   Node* n = new Node(d);
   if (!head) {
-    head = n;
+    head = tail = n;
   } else {
     n->next = head;
+    head->prev = n;
     head = n;
   }
   ++len;
@@ -64,8 +29,9 @@ int LinkedList::pop_front() {
   Node* to_remove = head;
   int rval = head->data;
   if (len == 1) {
-    head = nullptr;
+    head = tail = nullptr;
   } else {
+    head->next->prev = nullptr;
     head = to_remove->next;
   }
   delete to_remove;
@@ -87,32 +53,25 @@ int LinkedList::index(int data) {
 
 void LinkedList::push_back(int d) {
   Node* n = new Node(d);
-  if (!head) {
-    head = n;
+  if (!tail) {
+    head = tail = n;
   } else {
-    Node* iter = head;
-    while (iter->next) {
-      iter = iter->next;
-    }
-    iter->next = n;
+    n->prev = tail;
+    tail->next = n;
+    tail = n;
   }
   ++len;
 }
 
 int LinkedList::pop_back() {
-  Node* to_remove;
+  Node* to_remove = tail;
+  int rval = tail->data;
   if (len == 1) {
-    to_remove = head;
-    head = nullptr;
+    head = tail = nullptr;
   } else {
-    Node* iter = head;
-    while (iter->next->next) {
-      iter = iter->next;
-    }
-    to_remove = iter->next;
-    iter->next = nullptr;
+    tail->prev->next = nullptr;
+    tail = to_remove->prev;
   }
-  int rval = to_remove->data;
   delete to_remove;
   --len;
   return rval;
@@ -126,17 +85,25 @@ int LinkedList::at(int idx) {
   if (idx < 0 || (unsigned int)idx >= len)
     throw "Bad index";
 
-  // Iterate to the element.
-  Node* iter = head;
-  for (int i = 0; i < idx; ++i) {
-    iter = iter->next;
+  // Iterate to the element from the head or tail, whichever is closer.
+  Node* iter;
+  if ((unsigned int)idx < len / 2) {
+    iter = head;
+    while (--idx >= 0) {
+      iter = iter->next;
+    }
+  } else {
+    iter = tail;
+    while (++idx < (int)len) {
+      iter = iter->prev;
+    }
   }
 
-  // Return it's data.
+  // Return its data.
   return iter->data;
 }
 
-int LinkedList::set(int idx, int data) {
+int LinkedList::set(int idx, int d) {
   // Handle negative indexes by making it positive.
   idx = (idx < 0) ? len + idx : idx;
 
@@ -144,12 +111,21 @@ int LinkedList::set(int idx, int data) {
   if (idx < 0 || (unsigned int)idx >= len)
     throw "Bad index";
 
-  Node* iter = head;
-  while (--idx >= 0) {
-    iter = iter->next;
+  Node* iter;
+  if ((unsigned int)idx < len / 2) {
+    iter = head;
+    while (--idx >= 0) {
+      iter = iter->next;
+    }
+  } else {
+    iter = tail;
+    while (++idx < (int)len) {
+      iter = iter->prev;
+    }
   }
+
   int old = iter->data;
-  iter->data = data;
+  iter->data = d;
   return old;
 }
 
@@ -160,12 +136,22 @@ void LinkedList::push(int d, int idx) {
     push_back(d);
   } else {
     Node* n = new Node(d);
-    Node* iter = head;
-    while (--idx > 0) {
-      iter = iter->next;
+    Node* iter;
+    if ((unsigned)idx < len / 2) {
+      iter = head;
+      while (--idx > 0) {
+        iter = iter->next;
+      }
+    } else {
+      iter = tail;
+      while (++idx <= (int)len) {
+        iter = iter->prev;
+      }
     }
     n->next = iter->next;
+    n->prev = iter;
     iter->next = n;
+    n->next->prev = n;
     ++len;
   }
 }
@@ -176,12 +162,21 @@ int LinkedList::pop(int idx) {
   } else if ((unsigned int)idx == len - 1) {
     return pop_back();
   } else {
-    Node* iter = head;
-    while (--idx > 0) {
-      iter = iter->next;
+    Node* iter;
+    if ((unsigned)idx < len / 2) {
+      iter = head;
+      while (--idx > 0) {
+        iter = iter->next;
+      }
+    } else {
+      iter = tail;
+      while (++idx <= (int)len) {
+        iter = iter->prev;
+      }
     }
     Node* to_remove = iter->next;
     iter->next = to_remove->next;
+    iter->next->prev = iter;
     int ret = to_remove->data;
     delete to_remove;
     --len;
@@ -196,18 +191,20 @@ void LinkedList::clear() {
     head = head->next;
     delete to_remove;
   }
+  tail = nullptr;
   len = 0;
 }
 
 void LinkedList::remove(int d) {
-  if (head && head->data == d)
+  if (head && head->data == d) {
     pop_front();
-  else {
+  } else {
     Node* iter = head;
     while (iter->next) {
       if (iter->next->data == d) {
         Node* to_remove = iter->next;
         iter->next = to_remove->next;
+        iter->next->prev = iter;
         delete to_remove;
         --len;
         break;
@@ -227,9 +224,11 @@ void LinkedList::reverse() {
   while (curr) {
     next = curr->next;
     curr->next = prev;
+    curr->prev = next;
     prev = curr;
     curr = next;
   }
+  tail = head;
   head = prev;
 }
 
@@ -241,5 +240,4 @@ void LinkedList::print(std::ostream& oss) {
   }
   oss << std::endl;
   return;
->>>>>>> upstream/master
 }
