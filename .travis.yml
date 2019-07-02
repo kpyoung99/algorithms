@@ -19,6 +19,7 @@ matrix:
     - name: "Strings"
       env: 
 <<<<<<< HEAD
+<<<<<<< HEAD
       - SOURCE=source/string.cpp
     - name: "Iterative Functions"
       env:
@@ -36,22 +37,33 @@ script:
 =======
       - TARGET=string
     - name: "Iterative Functions"
+=======
+      - TARGET=String
+    - name: "Functions"
+>>>>>>> upstream/master
       env:
-      - TARGET=functions
-    - name: "Recursive Functions"
-      env:
-      - TARGET=functions_recursive
+      - TARGET=functions RECURSIVE=true
+      - TARGET=functions RECURSIVE=false
     - name: "Sorts"
       env:
       - TARGET=sorts
-    - name: "SLL"
+    - name: "LinkedList"
       env:
       - TARGET=SLL
+      - TARGET=CSLL
+      - TARGET=DLL
+      - TARGET=CDLL
+    - name: "Two Stacks"
+      -TARGET=twostack
 
 script:
+<<<<<<< HEAD
 <<<<<<< HEAD
   - make CXX=g++-8 $(TARGET)
 >>>>>>> upstream/master
 =======
   - make CXX=g++-8 $TARGET
+>>>>>>> upstream/master
+=======
+  - make $TARGET
 >>>>>>> upstream/master

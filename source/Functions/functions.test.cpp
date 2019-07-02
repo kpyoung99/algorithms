@@ -323,6 +323,8 @@ TEST_CASE("stringtoint") {
   CHECK(stringtoint((char*)"1234") == 1234);
   CHECK(stringtoint((char*)"10") == 10);
   CHECK(stringtoint((char*)"33") == 33);
+  CHECK(stringtoint((char*)"-1") == -1);
+  CHECK(stringtoint((char*)"-99") == -99);
 }
 
 <<<<<<< HEAD:source/functions.hpp
@@ -423,6 +425,7 @@ TEST_CASE("reverse") {
     for (int i = 0; i < 4; ++i)
       CHECK(arr4[i] == arr5[i]);
   }
+<<<<<<< HEAD
 <<<<<<< HEAD:source/functions.hpp
 }
 
@@ -430,3 +433,23 @@ TEST_CASE("reverse") {
 =======
 }
 >>>>>>> upstream/master:source/Functions/functions.test.cpp
+=======
+}
+
+TEST_CASE("Binary Search") {
+  int arr[100];
+  for (int i = 0; i < 100; ++i)
+    arr[i] = i;
+  SUBCASE("Key is present") {
+    REQUIRE_EQ(binsearch(arr, 100, 50), 50);
+    REQUIRE_EQ(binsearch(arr, 100, 0), 0);
+    REQUIRE_EQ(binsearch(arr, 100, 99), 99);
+    REQUIRE_EQ(binsearch(arr, 25, 25), 25);
+  }
+  SUBCASE("Key is not preset") {
+    REQUIRE_EQ(binsearch(arr, 100, 100), -1);
+    REQUIRE_EQ(binsearch(arr, 100, -1), -1);
+    REQUIRE_EQ(binsearch(arr, 100, 1000), -1);
+  }
+}
+>>>>>>> upstream/master
