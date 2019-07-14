@@ -1,8 +1,6 @@
 dist: xenial
-language:
-  - cpp
-compiler:
-  - gcc
+language: cpp
+compiler: gcc
 addons:
   apt:
     sources:
@@ -16,7 +14,8 @@ matrix:
     - name: "All"
       env:
       - TARGET=all
-    - name: "Strings"
+    
+    - name: "String"
       env: 
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -39,22 +38,39 @@ script:
     - name: "Iterative Functions"
 =======
       - TARGET=String
+    
     - name: "Functions"
 >>>>>>> upstream/master
       env:
       - TARGET=functions RECURSIVE=true
       - TARGET=functions RECURSIVE=false
+    
     - name: "Sorts"
       env:
-      - TARGET=sorts
-    - name: "LinkedList"
+      - TARGET=bubble
+      - TARGET=insertion
+      - TARGET=selection
+      - TARGET=merge
+      - TARGET=quick
+      - TARGET=tree
+      - TARGET=hybrid
+    
+    - name: "Lists"
       env:
       - TARGET=SLL
       - TARGET=CSLL
       - TARGET=DLL
       - TARGET=CDLL
-    - name: "Two Stacks"
-      -TARGET=twostack
+    
+    - name: "Trees"
+      env:
+      - TARGET=BST
+      - TARGET=RBTree
+      - TARGET=Trie
+    
+    - name: "Algorithms"
+      env:
+      - TARGET=twostack
 
 script:
 <<<<<<< HEAD
