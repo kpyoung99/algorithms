@@ -9,6 +9,7 @@ addons:
       - gcc-8
       - g++-8
 
+<<<<<<< HEAD
 matrix:
   include:
     - name: "All"
@@ -82,4 +83,8 @@ script:
 >>>>>>> upstream/master
 =======
   - make $TARGET
+>>>>>>> upstream/master
+=======
+script:
+  - make all
 >>>>>>> upstream/master
