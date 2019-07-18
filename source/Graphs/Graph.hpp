@@ -9,6 +9,10 @@
  */
 class Graph {
  private:
+    std::vector<std::vector<int>> array;
+    int count_edge;
+    int count_node;
+    unsigned int* value;
  public:
   /** Constructor
    * Creates a graph with n vertices but no edges.
