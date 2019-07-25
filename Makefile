@@ -19,13 +19,17 @@ Graph: Graph.test.o Graph.o
 Hashtable: Hashtable.test.o String.o functions.o
 Stack: Stack.test.o SLL.o
 Queue: Queue.test.o SLL.o
-Dequeue: Dequeue.test.o DLL.o
+Deque: Deque.test.o DLL.o
 functions: functions.test.o
 String: String.test.o functions.o
 
 # Algorithm Dependencies
 twostack.test: twostack.test.o Stack.o SLL.o String.o functions.o
 lexicographic.test: lexicographic.test.o Trie.o String.o functions.o
+hamiltoniancycle.test: Graph.o
+karprabin.test: String.o functions.o
+djikstra.test: Graph.o functions.o
+a-star.test: String.o functions.o
 
 
 # Complex Depedencies
@@ -40,7 +44,7 @@ $(SORTS): sort.test.o $$@.o functions.o BST.o RBTree.o MinHeap.o
 
 # Algorithms execution rule.
 $(ALGORITHMS): $$@.o 
-	$(CXX) $(FLAGS) $^ && ./a.out
+	$(CXX) $(FLAGS) $^ && ./a.out $(if $(TEST_CASE),--test-case=$(TEST_CASE))
 
 all: $(TARGETS)
 
