@@ -283,8 +283,7 @@ class List {
       temp = temp->next;
     if (temp)
       temp->val = val;
-    return;
-  }
+ }
 
   /** clear()
    * Clears the entire list.
@@ -304,7 +303,7 @@ class List {
    */
   void remove(String& key) {
     if (!head)
-      throw "Nothing to remove";
+      throw std::underflow_error("Nothing to remove");
     else if (head->key->compare(key)) {
       Node* temp = head;
       head = head->next;
@@ -370,7 +369,6 @@ class List {
       temp = temp->next;
     }
     oss << "}";
-    return;
   }
 };
 >>>>>>> upstream/master
